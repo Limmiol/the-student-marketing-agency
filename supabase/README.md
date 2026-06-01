@@ -8,14 +8,27 @@ This document describes the minimal steps to prepare Supabase resources and run 
 
 2) Apply database migrations
 - The SQL migrations are in `supabase/migrations/`.
-- Using the Supabase Dashboard SQL editor: open the file `20260520120000_create_profiles_table.sql` and run it.
+- Using the Supabase Dashboard SQL editor: run the migration files in order, including `20260601000000_create_avatars_bucket.sql`.
 - Or, using the Supabase CLI, link your project and run migrations:
 
   supabase login
   supabase link --project-ref <your-project-ref>
-  # Apply migrations (check your CLI version/docs) — alternatively run the SQL manually.
+  npm run migrate
 
-3) Create storage bucket for avatars
+- The `npm run migrate` helper will invoke the Supabase CLI and use `VITE_SUPABASE_PROJECT_ID` if set.
+
+3) Seed initial demo data (optional)
+- After the database schema is installed, run the local seed script:
+
+  npm run seed
+
+- The script requires a service role key in your environment as `SUPABASE_SERVICE_ROLE_KEY`.
+- The migration helper also needs `SUPABASE_DB_PASSWORD` in `.env` to connect to the remote database.
+- You can also run both steps together with `npm run setup`.
+
+> If you do not have a Supabase project, the app can still run locally with a mock backend. Leave the Supabase env vars unset and the app will use localStorage-based auth, leads, and uploads by default.
+
+4) Create storage bucket for avatars (if you prefer dashboard setup)
 - Open Supabase dashboard → Storage → Create a new bucket named `avatars`.
 - If you want public avatars, set the bucket to public access; otherwise configure signed URLs and adjust app logic.
 

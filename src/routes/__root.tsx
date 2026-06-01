@@ -11,6 +11,7 @@ import {
 import { Home, Info, Briefcase, Mail, Instagram, MapPin } from "lucide-react";
 
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { isSupabaseMock } from "@/integrations/supabase/client";
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -215,6 +216,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Toaster theme="dark" position="top-right" />
+        {isSupabaseMock ? (
+          <div className="offline-banner">
+            Running in offline mock mode. No Supabase credentials detected.
+          </div>
+        ) : null}
         <SiteNav />
         <Outlet />
         <Footer />

@@ -1,6 +1,9 @@
 import { EventForm } from "@/components/EventForm";
 import eventHero from "../../images/clubing.jpg";
 import eventGallery from "../../images/birthday parties.jpg";
+import eventCampus from "../../images/together.jpg";
+import eventLaunch from "../../images/parties.jpg";
+import eventActivation from "../../images/promotions.jpg";
 
 export function EventsPage() {
   return (
@@ -11,8 +14,8 @@ export function EventsPage() {
       >
         <div>
           <p className="section-tag">Events + Experiences</p>
-          <h1 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", marginBottom: "1.5rem" }}>
-            From launch days to campus takeovers, we craft experiences that connect.
+          <h1 className="hero-heading" style={{ marginBottom: "1.5rem" }}>
+            Launch days to campus takeovers.
           </h1>
           <p>
             Brand activations, event marketing, and live campaigns built for unforgettable reach
@@ -45,6 +48,56 @@ export function EventsPage() {
               <li>Sampling campaigns with real-time analytics</li>
             </ul>
           </article>
+        </div>
+      </section>
+
+      <section className="tsa-section" style={{ paddingTop: "0", paddingBottom: "3rem" }}>
+        <div style={{ display: "grid", gap: "1.5rem" }}>
+          <div>
+            <div className="section-tag">Sample Events</div>
+            <h2 className="section-title">Live activations that build buzz and brand momentum.</h2>
+          </div>
+          <div className="event-card-grid">
+            <article className="event-card">
+              <div className="event-card-media">
+                <img src={eventCampus} alt="Students at campus event" />
+                <span className="event-card-badge">Campus Takeover</span>
+              </div>
+              <div className="event-card-copy">
+                <h3>Campus takeover</h3>
+                <p>
+                  High-energy student activations with on-site sampling, performances, and social
+                  buzz that bring your brand directly into campus life.
+                </p>
+              </div>
+            </article>
+            <article className="event-card event-card--accent">
+              <div className="event-card-media">
+                <img src={eventLaunch} alt="Launch party activation" />
+                <span className="event-card-badge">Launch Party</span>
+              </div>
+              <div className="event-card-copy">
+                <h3>Launch party</h3>
+                <p>
+                  A standout product or campaign launch with influencers, live content, and brand
+                  storytelling designed to create momentum.
+                </p>
+              </div>
+            </article>
+            <article className="event-card">
+              <div className="event-card-media">
+                <img src={eventActivation} alt="Brand activation experience" />
+                <span className="event-card-badge">Brand Activation</span>
+              </div>
+              <div className="event-card-copy">
+                <h3>Brand activation</h3>
+                <p>
+                  Interactive experiences that turn awareness into action with branded moments, demo
+                  zones, and audience engagement.
+                </p>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 

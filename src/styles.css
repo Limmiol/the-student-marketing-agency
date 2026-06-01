@@ -219,6 +219,14 @@
   line-height: 0.95;
   letter-spacing: -0.03em;
 }
+
+/* Reusable heading style matching the home hero h1 */
+.hero-heading {
+  font-size: clamp(3rem, 6vw, 6.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
 .hero h1 em {
   font-style: normal;
   color: var(--accent);
@@ -230,6 +238,89 @@
   color: #999;
   max-width: 420px;
   line-height: 1.7;
+}
+.event-card-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.event-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(180deg, rgba(17, 20, 38, 0.95), rgba(10, 12, 22, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18);
+  color: #fff;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.event-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 192, 64, 0.55);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.24);
+}
+.event-card-media {
+  position: relative;
+  overflow: hidden;
+  min-height: 180px;
+}
+.event-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.event-card:hover .event-card-media img {
+  transform: scale(1.04);
+}
+.event-card-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 12, 22, 0) 0%, rgba(10, 12, 22, 0.7) 100%);
+}
+.event-card-badge {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #fff;
+  background: rgba(17, 20, 38, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.event-card-copy {
+  display: grid;
+  gap: 0.75rem;
+}
+.event-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+.event-card p {
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+.event-card--accent {
+  background: linear-gradient(180deg, rgba(212, 192, 64, 0.14), rgba(10, 12, 22, 0.95));
+  color: var(--fg);
+  border-color: rgba(212, 192, 64, 0.25);
+}
+.event-card--accent h3 {
+  color: var(--fg);
+}
+.event-card--accent p {
+  color: rgba(255, 255, 255, 0.88);
 }
 .hero-actions {
   margin-top: 2.5rem;
@@ -477,6 +568,16 @@
   margin-top: 0.6rem;
   color: #7a5f0d;
   font-size: 0.92rem;
+}
+
+.offline-banner {
+  background: rgba(58, 153, 218, 0.12);
+  border: 1px solid rgba(58, 153, 218, 0.28);
+  color: #0b517c;
+  padding: 0.9rem 1.25rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 /* MARQUEE */

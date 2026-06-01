@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "@tanstack/react-router";
 import { useAuth } from "@/contexts/AuthContext";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, isSupabaseMockRuntime } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export function ProfilePage() {
@@ -16,20 +16,46 @@ export function ProfilePage() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
 
-  if (!loading && !user) {
-    return <Navigate to="/login" />;
+
+  // Fetch profile via effect instead of react-query to avoid hook-order issues
+  const [profile, setProfile] = useState<any | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(!!user);
+  const [profileError, setProfileError] = useState<any | null>(null);
+
+  async function refetch() {
+    if (!user) return null;
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.from("profiles").select("*").eq("id", user.id).maybeSingle();
+      if (error) {
+        setProfileError(error);
+        setProfile(null);
+        return null;
+      }
+      setProfile(data || null);
+      setProfileError(null);
+      return data || null;
+    } catch (err) {
+      setProfileError(err);
+      setProfile(null);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
   }
 
-  const { data: profile, isLoading, error: profileError, refetch } = useQuery({
-    queryKey: ["profile", user?.id],
-    queryFn: async () => {
-      if (!user) return null;
-      const { data, error } = await supabase.from("profiles").select("*").eq("id", user.id).maybeSingle();
-      if (error) throw error;
-      return data;
-    },
-    enabled: !!user,
-  });
+  useEffect(() => {
+    let mounted = true;
+    if (!user) {
+      setProfile(null);
+      setIsLoading(false);
+      return;
+    }
+    refetch();
+    return () => {
+      mounted = false;
+    };
+  }, [user]);
 
   const profileErrorMessage = String(profileError?.message || profileError || "");
   const missingProfilesTable =
@@ -160,7 +186,9 @@ export function ProfilePage() {
     );
   }
 
-  if (!user) return null;
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <main className="page-shell profile-page">
@@ -172,11 +200,11 @@ export function ProfilePage() {
           </div>
           <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
             {editing ? (
-              <button className="btn-primary" onClick={saveProfile} disabled={missingProfilesTable}>
+                <button className="btn-primary" onClick={saveProfile} disabled={missingProfilesTable && !isSupabaseMockRuntime()}>
                 Save
               </button>
             ) : (
-              <button className="btn-primary" onClick={() => setEditing(true)} disabled={missingProfilesTable}>
+              <button className="btn-primary" onClick={() => setEditing(true)} disabled={missingProfilesTable && !isSupabaseMockRuntime()}>
                 Edit
               </button>
             )}
@@ -218,11 +246,13 @@ export function ProfilePage() {
                       className="btn-primary"
                       type="button"
                       onClick={uploadAvatar}
-                      disabled={missingProfilesTable || !avatarFile || uploading}
+                      disabled={(missingProfilesTable && !isSupabaseMockRuntime()) || !avatarFile || uploading}
                     >
                       {uploading ? "Uploading…" : "Upload avatar"}
                     </button>
-                    {missingProfilesTable ? <p className="profile-note">Avatar upload is disabled until profiles schema exists.</p> : null}
+                    {missingProfilesTable && !isSupabaseMockRuntime() ? (
+                      <p className="profile-note">Avatar upload is disabled until profiles schema exists.</p>
+                    ) : null}
                   </div>
                 </div>
               </div>

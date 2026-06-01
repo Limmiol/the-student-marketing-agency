@@ -104,6 +104,33 @@ export type Database = {
         };
         Relationships: [];
       };
+      profiles: {
+        Row: {
+          id: string;
+          full_name: string | null;
+          email: string | null;
+          avatar_url: string | null;
+          plan: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          full_name?: string | null;
+          email?: string | null;
+          avatar_url?: string | null;
+          plan?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          full_name?: string | null;
+          email?: string | null;
+          avatar_url?: string | null;
+          plan?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
