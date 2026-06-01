@@ -1,0 +1,5 @@
+project_id = "dizhkzhoyayaobhkhrgb"
+
+# This project ref is currently the one linked to the local Supabase CLI.
+# If the app needs to target a different Supabase project, update both this
+# config and the runtime .env values together.
