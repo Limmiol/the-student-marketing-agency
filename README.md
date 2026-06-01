@@ -59,6 +59,24 @@ npx playwright install --with-deps
 npm run test:playwright
 ```
 
+## Deploying online
+
+This repository is already configured for Cloudflare Workers deployment.
+
+1. Create a GitHub repository and add it as a remote for this branch.
+2. Add the following GitHub secrets to the repository:
+   - `CF_API_TOKEN`
+   - `CF_ACCOUNT_ID`
+3. Push to `main` or merge this branch into `main`.
+
+A GitHub Actions workflow will automatically deploy the app on pushes to `main`.
+
+For local deploys after logging in or setting up a local Cloudflare token, run:
+
+```bash
+npm run deploy:cloudflare
+```
+
 If you need to publish this branch after configuring a Git remote, run:
 
 ```powershell

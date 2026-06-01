@@ -13,7 +13,9 @@
     "setup": "node ./scripts/setup.js",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test:playwright": "playwright test"
+    "test:playwright": "playwright test",
+    "deploy:cloudflare": "npx wrangler deploy",
+    "deploy:cloudflare:preview": "npx wrangler deploy --preview"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
@@ -88,6 +90,7 @@
     "playwright": "^1.40.0",
     "prettier": "^3.7.3",
     "typescript": "^5.8.3",
+    "wrangler": "^4.92.0",
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1"
   }
