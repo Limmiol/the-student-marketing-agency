@@ -63,7 +63,7 @@ npm run test:playwright
 
 ## Deploying online
 
-This repository is already configured for Cloudflare Workers deployment.
+This repository is configured for Cloudflare Workers deployment. The app is SSR and must be deployed via Cloudflare Workers rather than GitHub Pages.
 
 1. Create a GitHub repository and add it as a remote for this branch.
 2. Add the following GitHub secrets to the repository:
