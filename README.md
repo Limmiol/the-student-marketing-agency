@@ -10,7 +10,9 @@ This project is a Tanstack React + Supabase starter app for a student marketing 
 npm install
 ```
 
-2. Copy environment file:
+2. Use Node.js 20.19.0 or newer.
+
+3. Copy environment file:
 
 ```bash
 cp .env.example .env
