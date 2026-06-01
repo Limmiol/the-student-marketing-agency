@@ -63,7 +63,12 @@ npm run test:playwright
 
 ## Deploying online
 
-This repository is configured for Cloudflare Workers deployment. The app is SSR and must be deployed via Cloudflare Workers rather than GitHub Pages.
+This repository is configured for Cloudflare Workers deployment.
+
+- This app is SSR and needs a Workers runtime, so GitHub Pages is not the right host.
+- Cloudflare Workers provides a free `*.workers.dev` subdomain out of the box.
+
+To deploy from GitHub Actions:
 
 1. Create a GitHub repository and add it as a remote for this branch.
 2. Add the following GitHub secrets to the repository:
@@ -71,7 +76,7 @@ This repository is configured for Cloudflare Workers deployment. The app is SSR 
    - `CF_ACCOUNT_ID`
 3. Push to `main` or merge this branch into `main`.
 
-A GitHub Actions workflow will automatically deploy the app on pushes to `main`.
+A GitHub Actions workflow will automatically deploy the app and publish it to a free Workers domain.
 
 For local deploys after logging in or setting up a local Cloudflare token, run:
 
